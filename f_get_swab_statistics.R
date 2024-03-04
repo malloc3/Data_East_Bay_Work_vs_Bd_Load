@@ -22,6 +22,8 @@ get_bd_ave_ze = function(swabs){
   return(as.numeric(Bd_ave_ZEs))
 }
 
+
+
 get_ave_ze = function(assesment_code, amphibian_bd_info_df){
   swabs = get_swabs(assesment_code, amphibian_bd_info_df)
   return(mean(get_bd_ave_ze(swabs)))

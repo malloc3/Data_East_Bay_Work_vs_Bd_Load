@@ -5,7 +5,7 @@ library(tidyr)
 
 
 source("f_get_swab_statistics.R")
-source("f_generate_date_load_df.R")
+source("f_generate_timeseries_df.R")
 # Load all the needed CSV!
 am_bd_df = read.csv("/Users/canonmallory/Library/Mobile Documents/com~apple~CloudDocs/Documents/School/UCSB/Briggs Lab/Climate Grant/Raw_Data_East_Bay_Work_vs_Load/Amphib_Bd_pietv10.csv")
 site_info_df = read.csv("/Users/canonmallory/Library/Mobile Documents/com~apple~CloudDocs/Documents/School/UCSB/Briggs Lab/Climate Grant/Raw_Data_East_Bay_Work_vs_Load/Site_Info_piet6.csv")
@@ -41,9 +41,12 @@ for (i in 1:length(site_codes_list)){
   if(is.data.frame(site_bd_over_time) & is.data.frame(site_work_over_time)){
     existing_sites = c(existing_sites, site_code)
     print(
-      ggplot() +
-        geom_point(data = site_bd_over_time, aes(x = date, y = min_ze), color = "blue") + #Plot BD data
-        geom_line(data = site_bd_over_time, aes(x = date, y = min_ze), color = "blue") + #Plot BD data
+      ggplot(data = site_bd_over_time, aes(x = date)) +
+        geom_print()
+        
+        
+        geom_point(data = site_bd_over_time, aes(x = date, y = ave_ze), color = "blue") + #Plot BD data
+        geom_line(data = site_bd_over_time, aes(x = date, y = ave_ze), color = "blue") + #Plot BD data
         geom_vline(data = site_work_over_time, aes(xintercept = Date_End), color = "red", size=.75) + 
         labs(x = "Dates", y = "Percent Positive", title = site_code)
     )
