@@ -73,7 +73,7 @@ generate_date_work_df = function(site_code, rw_work_done_df){
 generate_amphib_pop_over_time = function(site_code, rw_wetland_info_df, survey_df, report){
   #Get all the site visits that are associated with the specific site code
   site_wl_info_df = rw_wetland_info_df[rw_wetland_info_df$SiteCode == site_code, ]
-  #Checks that there are existing site visits  If not hen returnes NULL
+  #Checks that there are existing site visits  If not hen returns NULL
   if (nrow(site_wl_info_df) == 0) {
     return(NULL)
   }

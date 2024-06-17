@@ -42,9 +42,7 @@ for (i in 1:length(site_codes_list)){
     existing_sites = c(existing_sites, site_code)
     print(
       ggplot(data = site_bd_over_time, aes(x = date)) +
-        geom_print()
-        
-        
+        geom_print(),
         geom_point(data = site_bd_over_time, aes(x = date, y = ave_ze), color = "blue") + #Plot BD data
         geom_line(data = site_bd_over_time, aes(x = date, y = ave_ze), color = "blue") + #Plot BD data
         geom_vline(data = site_work_over_time, aes(xintercept = Date_End), color = "red", size=.75) + 
