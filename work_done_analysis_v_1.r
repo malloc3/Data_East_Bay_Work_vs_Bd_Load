@@ -54,7 +54,7 @@ merged_transect_data <- merge(transect_spp, trans_code_to_site_code, by = "trans
 transect_spp <- merged_transect_data
 
 # Clean up temporary variables
-rm(merged_transect_data, unmerged_rows)
+rm(merged_transect_data)
 colnames(transect_spp)
 #----- End Transect Survey Wrangleuing -----#
 
@@ -156,7 +156,6 @@ length(unique(merged_data$sitecode))
 merged_data <- merged_data %>%
   filter(sitecode %in% top_15_sites)
 
-length(unique(merged_data$sitecode))
 
 # Print the number of remaining sites
 cat("Number of sites with 3 or more measurements:", n_distinct(merged_data$sitecode), "\n")
@@ -253,7 +252,7 @@ combined_plot <- combined_plot +
   )
 
 # Display the combined plot
-print(combined_plot)
+#print(combined_plot)
 # Calculate the number of rows needed based on the number of plots
 num_plots <- length(site_plots)
 num_rows <- ceiling(num_plots / ncol_plots)
@@ -287,7 +286,7 @@ ggsave(filename = file.path(fig_save_path, "combined_plot_large_text_work_done.p
 
 
 #----- Single site plot -----#
-site = "PRPND009"
+site = "PRPND010"
 site_data = filter(merged_data, sitecode == site)
   plot <- ggplot(site_data, aes(x = date, y = spp_total)) +
     geom_point(aes(color = spp_code)) +

@@ -15,22 +15,20 @@ fig_save_path <- "/Users/canonmallory/Library/Mobile Documents/com~apple~CloudDo
 #Load all the CSV files as dataframes
 wetland <- read.csv(paste(folder_path, "wetland_full_clean_20240817.csv", sep = "/"))
 
+
 wetland <- wetland %>% 
-    mutate(date = lubridate::mdy(Date_End)) %>%
+    mutate(date = lubridate::mdy(date))
 
 
 
 
 
 
-sitecode <- "PRPND014"
+site <- "PRPND015"
 
 # Filter wetland data for sitecode "PRPND0015"
 wetland_filtered <- wetland %>%
-  filter(sitecode == sitecode)
-
-# Convert date to Date type if it's not already
-wetland_filtered$date <- as.Date(wetland_filtered$date)
+  filter(sitecode == site)
 
 date_range <- range(wetland_filtered$date, na.rm = TRUE)
 
@@ -43,15 +41,16 @@ wetland_filtered <- wetland_filtered %>%
 ggplot(wetland_filtered, aes(x = date, y = pond_area_m)) +
   geom_point(aes(color = dry), size = 3) +  # Add larger points
   geom_line() +   # Add line
-  labs(title = paste("Pond Area Over Time for", sitecode),
+  labs(title = paste("Pond Area Over Time for", site),
        x = "Date",
        y = "Pond Area (m²)") +
   theme_minimal() +
   scale_x_date(limits = date_range, date_breaks = "2 years", date_labels = "%Y") +
+  scale_y_continuous(limits = c(0, 3000), breaks = seq(0, 3000, by = 100)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for better readability
 
 # Save the plot
-ggsave(filename = file.path(fig_save_path, paste(sitecode, "_pond_area_over_time.png", sep = "")), 
+ggsave(filename = file.path(fig_save_path, paste(site, "_pond_area_over_time.png", sep = "")), 
        width = 10, 
        height = 6, 
        dpi = 300)
